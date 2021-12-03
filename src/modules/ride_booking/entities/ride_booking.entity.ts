@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNumber, IsString } from 'class-validator';
-import { Table, Column, Index, HasOne, DataType } from 'sequelize-typescript';
-import { Driver_admin } from 'src/modules/driver_admin/entities/driver_admin.entity';
+import { Table, Column, Index, HasOne, DataType, ForeignKey } from 'sequelize-typescript';
 import { Ride_details } from 'src/modules/ride_details/entities/ride_details.entity';
 import { Entity } from '../../../core/modules/database/entity';
 import {status} from '../status.enum'
@@ -62,9 +61,25 @@ export class Ride_booking extends Entity<Ride_booking> {
   @IsEnum(Object.keys(status))
   status: status;
 
+  @Column
+  @ApiProperty({
+    description:"Driver ID",
+    example:"1"
+  })
+  @IsNumber()
+  driver_id:number
+
+
+  @Column
+  @ApiProperty({
+    description:"Customer ID",
+    example:"1"
+  })
+  @IsNumber()
+  customer_id:number
+
+
   @HasOne(() => Ride_details, 'ride_id')
   ride_id: Ride_details;
-  
-  @HasOne(() => Driver_admin, 'driver_id')
-  driver_id_driver: Driver_admin;
+
 }

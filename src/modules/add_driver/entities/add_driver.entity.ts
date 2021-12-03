@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
-import { Table, Column, Index, HasOne } from 'sequelize-typescript';
+import { Table, Column, Index, HasOne, HasMany } from 'sequelize-typescript';
 import { Mileage } from 'src/modules/mileage/entities/mileage.entity';
+import { Ride_booking } from 'src/modules/ride_booking/entities/ride_booking.entity';
 import { Ride_details } from 'src/modules/ride_details/entities/ride_details.entity';
 import { Entity } from '../../../core/modules/database/entity';
 
@@ -77,5 +78,11 @@ export class Add_driver extends Entity<Add_driver> {
 
   @HasOne(() => Ride_details, 'driver_id')
   driver_in_ride_details: Ride_details;
+
+
+
+  @HasMany(()=>Ride_booking,'driver_id')
+  bookings:Ride_booking
+
   
 }

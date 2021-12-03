@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
-import { Table, Column, Index, HasOne } from 'sequelize-typescript';
+import { Table, Column, Index, HasOne, HasMany } from 'sequelize-typescript';
 import { Customer_admin } from 'src/modules/customer_admin/entities/customer_admin.entity';
-import { Driver_admin } from 'src/modules/driver_admin/entities/driver_admin.entity';
+
 import { Payment_report } from 'src/modules/payment_report/entities/payment_report.entity';
 import { Product_orders } from 'src/modules/product_orders/entities/product_orders.entity';
+import { Ride_booking } from 'src/modules/ride_booking/entities/ride_booking.entity';
 import { Ride_details } from 'src/modules/ride_details/entities/ride_details.entity';
 import { Entity } from '../../../core/modules/database/entity';
 
@@ -63,8 +64,9 @@ export class Customer extends Entity<Customer> {
   @HasOne(() => Customer_admin, 'customer_id')
   customerid: Customer_admin;
 
-  @HasOne(() => Driver_admin, 'customer_id')
-  customer_id_driver: Driver_admin;
+
+  @HasMany(()=>Ride_booking,'customer_id')
+  ride_bookings:Ride_booking
 }
 
 

@@ -55,7 +55,6 @@ import { MileageModule } from './modules/mileage/mileage.module';
 import { Coupon_codeModule } from './modules/coupon_code/coupon_code.module';
 import { Payment_reportModule } from './modules/payment_report/payment_report.module';
 import { Customer_adminModule } from './modules/customer_admin/customer_admin.module';
-import { Driver_adminModule } from './modules/driver_admin/driver_admin.module';
 import { AdminModule } from './modules/admin/admin.module';
 
 
@@ -110,7 +109,6 @@ import { AdminModule } from './modules/admin/admin.module';
     Coupon_codeModule,
     Payment_reportModule,
     Customer_adminModule,
-    Driver_adminModule,
     AdminModule
   ],
   controllers: [AppController],
