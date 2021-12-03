@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNumber, IsString } from 'class-validator';
-import { Table, Column, Index, HasOne, DataType, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, Index, HasOne, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Add_driver } from 'src/modules/add_driver/entities/add_driver.entity';
+import { Customer } from 'src/modules/customer/entities/customer.entity';
 import { Ride_details } from 'src/modules/ride_details/entities/ride_details.entity';
 import { Entity } from '../../../core/modules/database/entity';
 import {status} from '../status.enum'
@@ -60,7 +62,8 @@ export class Ride_booking extends Entity<Ride_booking> {
   })
   @IsEnum(Object.keys(status))
   status: status;
-
+  
+  @ForeignKey(()=>Add_driver)
   @Column
   @ApiProperty({
     description:"Driver ID",
@@ -69,7 +72,7 @@ export class Ride_booking extends Entity<Ride_booking> {
   @IsNumber()
   driver_id:number
 
-
+  @ForeignKey(()=>Customer)
   @Column
   @ApiProperty({
     description:"Customer ID",
@@ -77,6 +80,12 @@ export class Ride_booking extends Entity<Ride_booking> {
   })
   @IsNumber()
   customer_id:number
+
+  @BelongsTo(()=>Add_driver,'driver_id')
+  driver:Add_driver
+
+  @BelongsTo(()=>Customer,'customer_id')
+  customer:Customer
 
 
   @HasOne(() => Ride_details, 'ride_id')
